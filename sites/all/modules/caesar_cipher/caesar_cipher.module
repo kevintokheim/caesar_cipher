@@ -69,7 +69,22 @@
         $shift_direction = $form_state['values']['shift_direction'];
         $phrase = $form_state['values']['phrase'];
 
-        $_SESSION['encoded_result'] = 'Thank you. Your shift value is ' . $shift_value . ' and your shift direction is ' . $shift_direction . '. Your encoded phrase is ' . $phrase . '.';
+        $alphabet = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q',
+        'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
+
+        $flip = array_flip($alphabet);
+
+        $phrase = str_split($phrase);
+
+        $phrase_count = count($phrase);
+
+        $encrypted_phrase = '';
+
+        for($i = 0; $i < $phrase_count; $i++){
+            $encrypted_phrase .= $alphabet[($flip[$phrase[$i]] + $shift_value) % 26];
+        }
+
+        $_SESSION['encoded_result'] = 'Thank you. Your shift value is ' . $shift_value . ' and your shift direction is ' . $shift_direction . '. Your encoded phrase is ' . $encrypted_phrase . '.';
 
         $form_state['redirect'] = 'caesar_cipher_result';
     }
