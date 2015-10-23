@@ -11,7 +11,7 @@
             'type' => MENU_NORMAL_ITEM,
         );
 
-        $items['caesar_cipher_result_page'] = array(
+        $items['caesar_cipher_result'] = array(
             'title' => 'Caesar Cipher Results',
             'page callback' => 'caesar_cipher_result',
             'access callback' => TRUE,
@@ -34,7 +34,7 @@
             '#title' => 'Shift Direction',
             '#type' => 'textfield',
             '#description' => t('Would you like to shift to the right or to the left?'),
-            '#element_validate' => array('element_validate_positive_integer', 'direction_validate'),
+            // '#element_validate' => array('direction_validate'),
             '#required' => TRUE,
         );
 
@@ -42,7 +42,7 @@
             '#title' => 'Phrase',
             '#type' => 'textfield',
             '#description' => t('Please enter the phrase you would like encoded.'),
-            '#element_validate' => array('element_validate_positive_integer'),
+            // '#element_validate' => array(),
             '#required' => TRUE,
         );
 
@@ -54,12 +54,30 @@
         return $form;
     }
 
-    function direction_validate($element)
+
+
+    // function direction_validate($element)
+    // {
+    //     $user_direction = $element['#value'];
+    //
+    //     if ($user_direction != 'Right' || 'right' || 'Left' || 'left'){
+    //         form_error($element, t("Please enter either Left or Right"));
+    //     }
+    // }
+
+    function caesar_cipher_form_submit($form, &$form_state)
     {
-        $user_direction = $element['#value'];
+        $shift_value = $form_state['values']['shift_value'];
+        $shift_direction = $form_state['values']['shift_direction'];
+        $phrase = $form_state['values']['phrase'];
 
-        if ($user_direction != 'Right' || 'right' || 'Left' || 'left'){
-            return "Please enter either Left or Right";
-        }
+        $_SESSION['encoded_result'] = 'Thank you for your input. Your shift value is ' . $shift_value . 'and your shift direction is ' . $shift_direction . 'Your encoded phrase is ' . $phrase . '.';
 
+        $form_state['redirect'] = 'caesar_cipher_result';
+    }
+
+    function caesar_cipher_result()
+    {
+        $answer = $_SESSION['encoded_result'];
+        return $answer;
     }
