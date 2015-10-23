@@ -1,0 +1,5 @@
+name = Caesar Cipher
+description = Encrypts a user's phrase using the shift cipher (aka "Caesar Cipher") method.
+package = Cipher Modules
+core = 7.x
+files[] = caesar_cipher.module

@@ -1,0 +1,55 @@
+<?php
+
+    function caesar_cipher_menu()
+    {
+        $items = array();
+        $items['caesar_cipher'] = array(
+            'title' => 'Caesar Cipher',
+            'page callback' => 'drupal_get_form',
+            'page arguments' => array('caesar_cipher_form'),
+            'access callback' => TRUE,
+            'type' => MENU_NORMAL_ITEM,
+        );
+
+        $items['caesar_cipher_result_page'] = array(
+            'title' => 'Caesar Cipher Results',
+            'page callback' => 'caesar_cipher_result',
+            'access callback' => TRUE,
+            'type' => MENU_CALLBACK,
+        );
+        return $items;
+    }
+
+    function caesar_cipher_form()
+    {
+        $form['shift_value'] = array(
+            '#title' => 'Shift Value',
+            '#type' => 'textfield',
+            '#description' => 'Please enter the number of places you want to shift each letter.',
+            '#element_validate' => array(),
+            '#required' => TRUE,
+        );
+
+        $form['shift_direction'] = array(
+            '#title' => 'Shift Direction',
+            '#type' => 'textfield',
+            '#description' => 'Would you like to shift to the right or to the left?',
+            '#element_validate' => array(),
+            '#required' => TRUE,
+        );
+
+        $form['phrase'] = array(
+            '#title' => 'Phrase',
+            '#type' => 'textfield',
+            '#description' => 'Please enter the phrase you would like encoded.',
+            '#element_validate' => array(),
+            '#required' => TRUE,
+        );
+
+        $form['submit'] = array(
+            '#type' => 'submit',
+            '#value' => 'Submit',
+        );
+
+        return $form;
+    }
