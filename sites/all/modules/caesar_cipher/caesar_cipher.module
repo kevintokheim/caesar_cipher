@@ -80,8 +80,31 @@
 
         $encrypted_phrase = '';
 
+        // if (($shift_direction == 'Right') || ($shift_direction == 'right')){
+        //     for($i = 0; $i < $phrase_count; $i++){
+        //         $encrypted_phrase .= $alphabet[($flip[$phrase[$i]] + $shift_value) % 26];
+        //     }
+        // } else if (($shift_direction == 'Left') || ($shift_direction == 'left')){
+        //     for($i = 0; $i < $phrase_count; $i--){
+        //         $reverse_alphabet = rsort($alphabet);
+        //         $encrypted_phrase .= $reverse_alphabet[($flip[$phrase[$i]] - $shift_value) % 26];
+        //
+        //         // $encrypted_phrase .= array_slice($alphabet, $shift_value);
+        //         }
+        //     }
+
+
+
         for($i = 0; $i < $phrase_count; $i++){
-            $encrypted_phrase .= $alphabet[($flip[$phrase[$i]] + $shift_value) % 26];
+            if (($shift_direction == 'Right') || ($shift_direction == 'right')){
+                $encrypted_phrase .= $alphabet[($flip[$phrase[$i]] + $shift_value) % 26];
+            } else if (($shift_direction == 'Left') || ($shift_direction == 'left')){
+
+                $reverse_alphabet = rsort($alphabet);
+                $encrypted_phrase .= $reverse_alphabet[($flip[$phrase[$i]] - $shift_value) % 26];
+
+                // $encrypted_phrase .= array_slice($alphabet, $shift_value);
+            }
         }
 
         $_SESSION['encoded_result'] = 'Thank you. Your shift value is ' . $shift_value . ' and your shift direction is ' . $shift_direction . '. Your encoded phrase is ' . $encrypted_phrase . '.';
